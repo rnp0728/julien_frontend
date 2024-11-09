@@ -5,6 +5,7 @@ import 'package:julien/services/initialization/model/app_theme.dart';
 import 'package:julien/services/settings/data/theme_mode_codec.dart';
 import 'package:julien/services/settings/model/app_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 /// {@template app_settings_datasource}
 /// [AppSettingsDatasource] sets and gets app settings.
 /// {@endtemplate}
@@ -40,8 +41,10 @@ final class AppSettingsDatasourceImpl implements AppSettingsDatasource {
 /// Persisted entry for [AppSettings]
 class AppSettingsPersistedEntry extends SharedPreferencesEntry<AppSettings> {
   /// Create [AppSettingsPersistedEntry]
-  AppSettingsPersistedEntry(
-      {required super.sharedPreferences, required super.key});
+  AppSettingsPersistedEntry({
+    required super.sharedPreferences,
+    required super.key,
+  });
 
   late final _themeMode = StringPreferencesEntry(
     sharedPreferences: sharedPreferences,

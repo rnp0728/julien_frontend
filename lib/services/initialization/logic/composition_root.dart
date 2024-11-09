@@ -1,6 +1,7 @@
 import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
 import 'package:julien/core/constant/config.dart';
+import 'package:julien/core/utils/persistent_manager.dart';
 import 'package:julien/core/utils/refined_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:julien/core/utils/error_tracking_manager.dart';
@@ -82,9 +83,12 @@ class DependenciesFactory extends AsyncFactory<DependenciesContainer> {
   Future<DependenciesContainer> create() async {
     final sharedPreferences = SharedPreferencesAsync();
 
-    final errorTrackingManager = await ErrorTrackingManagerFactory(config, logger).create();
+    final errorTrackingManager =
+        await ErrorTrackingManagerFactory(config, logger).create();
     final settingsBloc = await SettingsBlocFactory(sharedPreferences).create();
 
+    /// Initialize the Persistent Manager
+    await PersistentManager.initialize();
     return DependenciesContainer(
       appSettingsBloc: settingsBloc,
       errorTrackingManager: errorTrackingManager,
@@ -134,7 +138,8 @@ class SettingsBlocFactory extends AsyncFactory<AppSettingsBloc> {
   @override
   Future<AppSettingsBloc> create() async {
     final appSettingsRepository = AppSettingsRepositoryImpl(
-      datasource: AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
+      datasource:
+          AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
     );
 
     final appSettings = await appSettingsRepository.getAppSettings();

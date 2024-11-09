@@ -13,11 +13,13 @@ final class AppTheme with Diagnosticable {
           colorSchemeSeed: seed,
           brightness: Brightness.dark,
           useMaterial3: true,
+          fontFamily: 'CaskaydiaCove',
         ),
         lightTheme = ThemeData(
           colorSchemeSeed: seed,
           brightness: Brightness.light,
           useMaterial3: true,
+          fontFamily: 'CaskaydiaCove',
         );
 
   /// The type of theme to use.

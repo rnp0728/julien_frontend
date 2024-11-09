@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:julien/core/constant/config.dart';
 import 'package:julien/core/utils/app_bloc_observer.dart';
 import 'package:julien/core/utils/refined_logger.dart';
@@ -32,6 +33,7 @@ final class AppRunner {
     Bloc.observer = AppBlocObserver(logger);
     // Bloc.transformer = bloc_concurrency.sequential();
     const config = Config();
+    usePathUrlStrategy();
 
     Future<void> initializeAndRun() async {
       try {

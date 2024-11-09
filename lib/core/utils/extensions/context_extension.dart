@@ -8,8 +8,9 @@ extension ContextExtension on BuildContext {
   /// when that widget changes (or a new widget of that type is introduced,
   /// or the widget goes away), this build context is rebuilt so that it can
   /// obtain new values from that widget.
-  T? inhMaybeOf<T extends InheritedWidget>({bool listen = true}) =>
-      listen ? dependOnInheritedWidgetOfExactType<T>() : getInheritedWidgetOfExactType<T>();
+  T? inhMaybeOf<T extends InheritedWidget>({bool listen = true}) => listen
+      ? dependOnInheritedWidgetOfExactType<T>()
+      : getInheritedWidgetOfExactType<T>();
 
   /// Obtain the nearest widget of the given type T,
   /// which must be the type of a concrete [InheritedWidget] subclass,
@@ -39,4 +40,16 @@ extension ContextExtension on BuildContext {
             'a $T of the exact type',
         'out_of_scope',
       ));
+
+  /// Height
+  double get height => MediaQuery.of(this).size.height;
+
+  /// Width
+  double get width => MediaQuery.of(this).size.width;
+
+  /// IS LIGHT THEME
+  bool get isLightTheme => Theme.of(this).brightness == Brightness.light;
+
+  /// IS DARK THEME
+  bool get isDarkTheme => !isLightTheme;
 }

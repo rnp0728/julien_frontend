@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
 
   async: any
   collection: any
@@ -52,6 +54,9 @@ dependencies:
   path_provider: ^2.1.4
   platform_info: ^5.0.0
   sentry_flutter: ^8.9.0
+  flutter_animate: ^4.5.0
+  google_fonts: ^6.2.1
+  gap: ^3.0.1
 
 dev_dependencies:
   # Testing
@@ -81,12 +86,12 @@ flutter:
     - assets/images/
     - assets/icons/
 
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: CaskaydiaCove
+      fonts:
+        - asset: assets/fonts/CaskaydiaCoveNerdFont-Bold.ttf
+        - asset: assets/fonts/CaskaydiaCoveNerdFont-Bold.ttf
+        - asset: assets/fonts/CaskaydiaCoveNerdFont-Regular.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

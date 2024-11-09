@@ -146,3 +146,4 @@ class StringListPreferencesEntry extends SharedPreferencesEntry<List<String>> {
     await sharedPreferences.remove(key);
   }
 }
+

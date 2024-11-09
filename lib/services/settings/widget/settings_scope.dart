@@ -4,9 +4,7 @@ import 'package:julien/services/initialization/widget/dependencies_scope.dart';
 import 'package:julien/services/settings/bloc/app_settings_bloc.dart';
 import 'package:julien/services/settings/model/app_settings.dart';
 
-/// {@template settings_scope}
 /// SettingsScope widget.
-/// {@endtemplate}
 class SettingsScope extends StatefulWidget {
   /// {@macro settings_scope}
   const SettingsScope({required this.child, super.key});

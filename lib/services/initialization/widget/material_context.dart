@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:julien/services/initialization/model/app_theme.dart';
 import 'package:julien/services/routing/app_router.dart';
 import 'package:julien/services/settings/widget/settings_scope.dart';
@@ -11,17 +12,16 @@ import 'package:julien/services/settings/widget/settings_scope.dart';
 class MaterialContext extends StatelessWidget {
   /// {@macro material_context}
   const MaterialContext({super.key});
-
   // This global key is needed for [MaterialApp]
   // to work properly when Widgets Inspector is enabled.
   static final _globalKey = GlobalKey();
-
+  static final router = AppRouter.router();
   @override
   Widget build(BuildContext context) {
     final settings = SettingsScope.settingsOf(context);
     final mediaQueryData = MediaQuery.of(context);
-    final router = AppRouter.router();
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       theme: settings.appTheme?.lightTheme ?? AppTheme.defaultTheme.lightTheme,
       darkTheme:
           settings.appTheme?.darkTheme ?? AppTheme.defaultTheme.darkTheme,
