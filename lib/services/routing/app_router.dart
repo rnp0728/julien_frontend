@@ -61,8 +61,8 @@ class AppRouter {
         GoRoute(
           path: Routes.onbaording,
           pageBuilder: (context, state) {
-            return const CustomTransitionPage(
-              child: OnbaordingPage(),
+            return CustomTransitionPage(
+              child: OnbaordingPage.builder(context),
               transitionsBuilder: slideTransition,
             );
           },
