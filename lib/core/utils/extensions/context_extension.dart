@@ -52,4 +52,26 @@ extension ContextExtension on BuildContext {
 
   /// IS DARK THEME
   bool get isDarkTheme => !isLightTheme;
+
+  T byTheme<T>({
+    required T light,
+    required T dark,
+  }) =>
+      isLightTheme ? light : dark;
+
+  T responsive<T>(
+    T defaultValue, {
+    T? sm,
+    T? md,
+    T? lg,
+  }) {
+    final w = MediaQuery.of(this).size.width;
+    return w > 1024
+        ? (lg ?? md ?? sm ?? defaultValue)
+        : w > 768
+            ? (md ?? sm ?? defaultValue)
+            : w > 640
+                ? (sm ?? defaultValue)
+                : sm ?? defaultValue;
+  }
 }

@@ -7,7 +7,10 @@ import 'package:julien/services/settings/model/app_settings.dart';
 /// SettingsScope widget.
 class SettingsScope extends StatefulWidget {
   /// {@macro settings_scope}
-  const SettingsScope({required this.child, super.key});
+  const SettingsScope({
+    required this.child,
+    super.key,
+  });
 
   /// The child widget.
   final Widget child;

@@ -84,17 +84,40 @@ final class OnbaordingLoadedState extends OnbaordingState {
   }
 }
 
+final class OnbaordingSuccessState extends OnbaordingState {
+  final Map<String, dynamic> responseData;
+  const OnbaordingSuccessState({
+    super.onbaordingMode,
+    required this.responseData,
+  });
+  @override
+  factory OnbaordingSuccessState.copyState({
+    OnbaordingMode? onbaordingMode,
+    required OnbaordingState state,
+    required Map<String, dynamic> responseData,
+  }) {
+    return OnbaordingSuccessState(
+      onbaordingMode: onbaordingMode ?? state.onbaordingMode,
+      responseData: responseData,
+    );
+  }
+}
+
 final class OnbaordingErrorState extends OnbaordingState {
+  final String message;
   const OnbaordingErrorState({
     super.onbaordingMode,
+    required this.message,
   });
   @override
   factory OnbaordingErrorState.copyState({
     OnbaordingMode? onbaordingMode,
     required OnbaordingState state,
+    required String message,
   }) {
     return OnbaordingErrorState(
       onbaordingMode: onbaordingMode ?? state.onbaordingMode,
+      message: message,
     );
   }
 }

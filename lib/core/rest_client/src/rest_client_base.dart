@@ -3,22 +3,19 @@ import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:julien/core/rest_client/rest_client.dart';
+import 'package:julien/core/rest_client/src/api_response.dart';
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as p;
 
 /// {@macro rest_client}
 @immutable
 abstract base class RestClientBase implements RestClient {
   /// {@macro rest_client}
-  RestClientBase({required String baseUrl}) : baseUri = Uri.parse(baseUrl);
-
-  /// The base url for the client
-  final Uri baseUri;
+  const RestClientBase();
 
   static final _jsonUTF8 = json.fuse(utf8);
 
   /// Sends a request to the server
-  Future<Map<String, Object?>?> send({
+  Future<APIResponse> send({
     required String path,
     required String method,
     Map<String, Object?>? body,
@@ -27,7 +24,7 @@ abstract base class RestClientBase implements RestClient {
   });
 
   @override
-  Future<Map<String, Object?>?> delete(
+  Future<APIResponse> delete(
     String path, {
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
@@ -40,7 +37,7 @@ abstract base class RestClientBase implements RestClient {
       );
 
   @override
-  Future<Map<String, Object?>?> get(
+  Future<APIResponse> get(
     String path, {
     Map<String, String>? headers,
     Map<String, String?>? queryParams,
@@ -53,7 +50,7 @@ abstract base class RestClientBase implements RestClient {
       );
 
   @override
-  Future<Map<String, Object?>?> patch(
+  Future<APIResponse> patch(
     String path, {
     required Map<String, Object?> body,
     Map<String, String>? headers,
@@ -68,7 +65,7 @@ abstract base class RestClientBase implements RestClient {
       );
 
   @override
-  Future<Map<String, Object?>?> post(
+  Future<APIResponse> post(
     String path, {
     required Map<String, Object?> body,
     Map<String, String>? headers,
@@ -83,7 +80,7 @@ abstract base class RestClientBase implements RestClient {
       );
 
   @override
-  Future<Map<String, Object?>?> put(
+  Future<APIResponse> put(
     String path, {
     required Map<String, Object?> body,
     Map<String, String>? headers,
@@ -109,17 +106,6 @@ abstract base class RestClientBase implements RestClient {
         stackTrace,
       );
     }
-  }
-
-  /// Builds [Uri] from [path], [queryParams] and [baseUri]
-  @protected
-  @visibleForTesting
-  Uri buildUri({required String path, Map<String, String?>? queryParams}) {
-    final finalPath = p.join(baseUri.path, path);
-    return baseUri.replace(
-      path: finalPath,
-      queryParameters: {...baseUri.queryParameters, ...?queryParams},
-    );
   }
 
   /// Decodes the response [body]

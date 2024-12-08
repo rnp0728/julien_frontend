@@ -1,8 +1,12 @@
 import 'package:clock/clock.dart';
 import 'package:flutter/foundation.dart';
 import 'package:julien/core/constant/config.dart';
+import 'package:julien/core/di/dependency_injection.dart';
+import 'package:julien/core/rest_client/rest_client.dart';
 import 'package:julien/core/utils/persistent_manager.dart';
 import 'package:julien/core/utils/refined_logger.dart';
+import 'package:julien/services/authentication/bloc/authentication_bloc.dart';
+import 'package:julien/services/authentication/data/authentication_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:julien/core/utils/error_tracking_manager.dart';
 import 'package:julien/services/settings/bloc/app_settings_bloc.dart';
@@ -86,12 +90,18 @@ class DependenciesFactory extends AsyncFactory<DependenciesContainer> {
     final errorTrackingManager =
         await ErrorTrackingManagerFactory(config, logger).create();
     final settingsBloc = await SettingsBlocFactory(sharedPreferences).create();
+    final restClient = getIt<RestClientDio>();
+
+    final authBloc =
+        await AutheticationBlocFactory(sharedPreferences, restClient).create();
 
     /// Initialize the Persistent Manager
     await PersistentManager.initialize();
     return DependenciesContainer(
       appSettingsBloc: settingsBloc,
       errorTrackingManager: errorTrackingManager,
+      restClient: restClient,
+      authBloc: authBloc,
     );
   }
 }
@@ -148,6 +158,29 @@ class SettingsBlocFactory extends AsyncFactory<AppSettingsBloc> {
     return AppSettingsBloc(
       appSettingsRepository: appSettingsRepository,
       initialState: initialState,
+    );
+  }
+}
+
+/// {@template settings_bloc_factory}
+/// Factory that creates an instance of [AuthenticationBloc].
+/// {@endtemplate}
+class AutheticationBlocFactory extends AsyncFactory<AuthenticationBloc> {
+  /// {@macro auth_bloc_factory}
+  AutheticationBlocFactory(this.sharedPreferences, this.restClientHttp);
+
+  /// Shared preferences instance
+  final SharedPreferencesAsync sharedPreferences;
+
+  /// Rest client instance
+  final RestClientDio restClientHttp;
+
+  @override
+  Future<AuthenticationBloc> create() async {
+    final AuthenticationRepository authenticationRepository =
+        AuthenticationRepositoryImpl(client: restClientHttp);
+    return AuthenticationBloc(
+      authenticationRepository: authenticationRepository,
     );
   }
 }

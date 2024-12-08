@@ -23,12 +23,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DefaultAssetBundle(
-    bundle: SentryAssetBundle(),
-    child: DependenciesScope(
-      dependencies: result.dependencies,
-      child: const SettingsScope(
-        child: WindowSizeScope(child: MaterialContext()),
-      ),
-    ),
-  );
+        bundle: SentryAssetBundle(),
+        child: DependenciesScope(
+          dependencies: result.dependencies,
+          child: const SettingsScope(
+            child: WindowSizeScope(
+              child: MaterialContext(),
+            ),
+          ),
+        ),
+      );
 }

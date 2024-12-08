@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:julien/core/constant/config.dart';
+import 'package:julien/core/di/dependency_injection.dart';
 import 'package:julien/core/utils/app_bloc_observer.dart';
 import 'package:julien/core/utils/refined_logger.dart';
 import 'package:julien/services/initialization/logic/composition_root.dart';
@@ -37,6 +38,7 @@ final class AppRunner {
 
     Future<void> initializeAndRun() async {
       try {
+        await AppInjector.initializeDependencies();
         final result = await CompositionRoot(config, logger).compose();
         // Attach this widget to the root of the tree.
         runApp(App(result: result));

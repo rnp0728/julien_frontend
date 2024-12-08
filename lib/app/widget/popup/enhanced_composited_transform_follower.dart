@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:julien/core/widget/popup/enhanced_composited_transform_target.dart';
+import 'package:julien/app/widget/popup/enhanced_composited_transform_target.dart';
 
 /// A widget that follows a [CompositedTransformTarget].
 ///

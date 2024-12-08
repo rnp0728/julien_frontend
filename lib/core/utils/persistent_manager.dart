@@ -30,8 +30,7 @@ class PersistentManager {
   }
 
   /// Set a [bool] value in SharedPreferences.
-  static Future<void> setBool(
-      {required String key, required bool value}) async {
+  static Future<void> setBool(String key, bool value) async {
     await _sharedPreferences.setBool(key, value);
   }
 

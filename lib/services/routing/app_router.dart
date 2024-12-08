@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:julien/core/utils/persistent_manager.dart';
 import 'package:julien/presentation/landing/landing_page.dart';
 import 'package:julien/presentation/onbaording/view/onbaording_page.dart';
+import 'package:julien/presentation/project_dashboard/view/project_dashbaord_page.dart';
+import 'package:julien/services/authentication/bloc/authentication_bloc.dart';
 import 'package:julien/services/routing/routes.dart';
 
 Widget slideTransition(
@@ -33,12 +36,15 @@ class AppRouter {
       redirect: (context, state) {
         final visitedLandingPage =
             PersistentManager.getBool("visitedLandingPage") ?? false;
+        final authenticatedUser = PersistentManager.getString("token") != null;
         final onWelcomePage = state.fullPath == Routes.welcome;
-        return visitedLandingPage
-            ? visitedLandingPage && onWelcomePage
-                ? Routes.onbaording
-                : null
-            : Routes.welcome;
+        return authenticatedUser
+            ? Routes.dashboard
+            : visitedLandingPage
+                ? visitedLandingPage && onWelcomePage
+                    ? Routes.onbaording
+                    : null
+                : Routes.welcome;
       },
       routes: [
         GoRoute(
@@ -63,6 +69,22 @@ class AppRouter {
           pageBuilder: (context, state) {
             return CustomTransitionPage(
               child: OnbaordingPage.builder(context),
+              transitionsBuilder: slideTransition,
+            );
+          },
+        ),
+        GoRoute(
+          path: Routes.dashboard,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  if (state is AuthenticatedState) {
+                    return const ProjectDashbaordPage();
+                  }
+                  return Container();
+                },
+              ),
               transitionsBuilder: slideTransition,
             );
           },

@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:julien/core/widget/popup/enhanced_composited_transform_follower.dart';
-import 'package:julien/core/widget/popup/enhanced_composited_transform_target.dart';
+import 'package:julien/app/widget/popup/enhanced_composited_transform_follower.dart';
+import 'package:julien/app/widget/popup/enhanced_composited_transform_target.dart';
 
 /// A function that builds a widget with a controller.
 typedef PopupWidgetBuilder = Widget Function(

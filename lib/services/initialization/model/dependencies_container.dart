@@ -1,4 +1,6 @@
+import 'package:julien/core/rest_client/rest_client.dart';
 import 'package:julien/core/utils/error_tracking_manager.dart';
+import 'package:julien/services/authentication/bloc/authentication_bloc.dart';
 import 'package:julien/services/settings/bloc/app_settings_bloc.dart';
 
 /// {@template dependencies_container}
@@ -14,6 +16,8 @@ base class DependenciesContainer {
   const DependenciesContainer({
     required this.appSettingsBloc,
     required this.errorTrackingManager,
+    required this.authBloc,
+    required this.restClient,
   });
 
   /// [AppSettingsBloc] instance, used to manage theme and locale.
@@ -21,6 +25,12 @@ base class DependenciesContainer {
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;
+
+  /// {AuthenticationBloc} instance, used to manage authentication
+  final AuthenticationBloc authBloc;
+
+  /// {RestClientHttp} instance, used to do rest api calls
+  final RestClientDio restClient;
 }
 
 /// {@template testing_dependencies_container}

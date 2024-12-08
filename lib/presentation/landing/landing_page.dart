@@ -3,9 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:julien/core/utils/extensions/context_extension.dart';
 import 'package:julien/core/utils/extensions/widget_extension.dart';
 import 'package:julien/core/utils/persistent_manager.dart';
-import 'package:julien/core/widget/texts/app_text.dart';
+import 'package:julien/app/widget/texts/app_text.dart';
 import 'package:julien/services/initialization/model/app_colors.dart';
-import 'package:julien/services/routing/app_router.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -41,8 +40,8 @@ class _LandingPageState extends State<LandingPage> {
             ElevatedButton.icon(
               onPressed: () {
                 PersistentManager.setBool(
-                  key: "visitedLandingPage",
-                  value: true,
+                  "visitedLandingPage",
+                  true,
                 );
                 context.go("/onbaording");
               },
